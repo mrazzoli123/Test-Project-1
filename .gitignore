@@ -17,3 +17,7 @@ instance/
 # OS specific files (optional but helpful)
 .DS_Store
 Thumbs.db
+
+# Documentation
+desription.md
+description.md
