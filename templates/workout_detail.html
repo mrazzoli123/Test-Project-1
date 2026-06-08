@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="columns is-centered">
+    <div class="column is-8">
+        <!-- Workout Header will be populated by JS -->
+        <div id="workout-header" class="mb-5">
+            <div class="is-flex is-justify-content-space-between is-align-items-center">
+                <h1 class="title is-3" id="workout-title">Loading...</h1>
+                <button class="button is-danger is-outlined is-small" id="delete-workout-btn">
+                    <i class="fas fa-trash mr-1"></i> Delete Workout
+                </button>
+            </div>
+            <p class="subtitle is-6 has-text-grey" id="workout-date"></p>
+        </div>
+
+        <div class="card">
+            <header class="card-header has-background-light">
+                <p class="card-header-title">
+                    <i class="fas fa-list-ol mr-2"></i> Exercises
+                </p>
+            </header>
+            <div class="card-content">
+                <div id="exercises-list">
+                    <div class="has-text-centered py-4">
+                        <span class="icon has-text-grey-light">
+                            <i class="fas fa-circle-notch fa-spin"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <form id="add-exercise-form" class="mt-4">
+                    <h4 class="subtitle is-6 mb-3 has-text-weight-bold">Add New Exercise</h4>
+                    <div class="columns is-mobile is-multiline is-vcentered">
+                        <div class="column is-12-mobile is-4-tablet">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-small" type="text" id="new-ex-name" placeholder="Exercise Name" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-3-mobile is-2-tablet">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-small" type="number" id="new-ex-sets" min="1" placeholder="Sets" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-3-mobile is-2-tablet">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-small" type="number" id="new-ex-reps" min="1" placeholder="Reps" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-3-mobile is-2-tablet">
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-small" type="number" step="0.1" id="new-ex-weight" min="0" placeholder="Weight" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-3-mobile is-2-tablet">
+                            <button type="submit" class="button is-small is-link is-fullwidth">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <a href="{{ url_for('views.dashboard') }}" class="button is-light">
+                <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Pass workout_id to the JS app
+    const currentWorkoutId = {{ workout_id }};
+</script>
+{% endblock %}

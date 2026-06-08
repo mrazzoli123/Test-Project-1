@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="columns is-centered">
+    <div class="column is-8">
+        <div class="card">
+            <header class="card-header has-background-link">
+                <p class="card-header-title has-text-white">
+                    <i class="fas fa-plus-circle mr-2"></i> Create New Workout
+                </p>
+            </header>
+            <div class="card-content">
+                <form id="create-workout-form">
+                    <div class="field">
+                        <label class="label">Workout Name</label>
+                        <div class="control">
+                            <input class="input is-medium" type="text" id="workout-name" placeholder="e.g., Leg Day, Full Body A" required>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h3 class="title is-5">Exercises</h3>
+                    <div id="exercises-list">
+                        <!-- Dynamic exercises will be added here -->
+                    </div>
+                    
+                    <div class="field mt-4">
+                        <div class="control">
+                            <button type="button" id="add-exercise-btn" class="button is-small is-light is-rounded">
+                                <i class="fas fa-plus mr-1"></i> Add Exercise
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="field is-grouped mt-6">
+                        <div class="control">
+                            <button type="submit" class="button is-link">Save Workout</button>
+                        </div>
+                        <div class="control">
+                            <a href="{{ url_for('views.dashboard') }}" class="button is-link is-light">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Template for a single exercise row -->
+<template id="exercise-row-template">
+    <div class="box exercise-row is-shadowless" style="border: 1px solid #dbdbdb;">
+        <div class="is-flex is-justify-content-space-between is-align-items-center mb-2">
+            <h4 class="subtitle is-6 has-text-weight-bold mb-0">Exercise</h4>
+            <button type="button" class="delete has-background-danger remove-exercise-btn"></button>
+        </div>
+        <div class="columns is-mobile is-multiline">
+            <div class="column is-12-mobile is-6-tablet">
+                <div class="field">
+                    <label class="label is-small">Name</label>
+                    <div class="control">
+                        <input class="input is-small ex-name" type="text" placeholder="Squat" required>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-4-mobile is-2-tablet">
+                <div class="field">
+                    <label class="label is-small">Sets</label>
+                    <div class="control">
+                        <input class="input is-small ex-sets" type="number" min="1" value="3" required>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-4-mobile is-2-tablet">
+                <div class="field">
+                    <label class="label is-small">Reps</label>
+                    <div class="control">
+                        <input class="input is-small ex-reps" type="number" min="1" value="10" required>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-4-mobile is-2-tablet">
+                <div class="field">
+                    <label class="label is-small">Weight</label>
+                    <div class="control">
+                        <input class="input is-small ex-weight" type="number" step="0.1" min="0" value="0" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+{% endblock %}

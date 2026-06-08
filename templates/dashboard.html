@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="columns is-multiline">
+    <!-- Workouts Column -->
+    <div class="column is-8">
+        <div class="is-flex is-justify-content-space-between is-align-items-center mb-4">
+            <h1 class="title is-3 mb-0">My Workouts</h1>
+            <a href="{{ url_for('views.create_workout') }}" class="button is-link is-rounded">
+                <i class="fas fa-plus mr-2"></i> New Workout
+            </a>
+        </div>
+        
+        <div id="workouts-container">
+            <!-- Workouts will be loaded here dynamically -->
+            <div class="has-text-centered py-6">
+                <span class="icon is-large has-text-grey-light">
+                    <i class="fas fa-circle-notch fa-spin fa-3x"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRs Column -->
+    <div class="column is-4">
+        <div class="card">
+            <header class="card-header has-background-primary">
+                <p class="card-header-title has-text-white">
+                    <i class="fas fa-trophy mr-2"></i> Personal Records
+                </p>
+            </header>
+            <div class="card-content">
+                <div id="prs-container">
+                    <!-- PRs will be loaded here dynamically -->
+                    <div class="has-text-centered py-4">
+                        <span class="icon has-text-grey-light">
+                            <i class="fas fa-circle-notch fa-spin"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

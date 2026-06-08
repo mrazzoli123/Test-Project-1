@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="columns is-centered mt-6">
+    <div class="column is-5">
+        <div class="card">
+            <div class="card-content">
+                <h1 class="title has-text-centered mb-5">Welcome to Gym Tracker</h1>
+                
+                <div class="tabs is-fullwidth is-toggle is-toggle-rounded mb-5" id="auth-tabs">
+                    <ul>
+                        <li class="is-active" data-target="login-form">
+                            <a><span>Login</span></a>
+                        </li>
+                        <li data-target="register-form">
+                            <a><span>Register</span></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="login-error" class="notification is-danger is-hidden"></div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form">
+                    <div class="field">
+                        <label class="label">Username</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="text" id="login-username" placeholder="johndoe" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="password" id="login-password" placeholder="********" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field mt-5">
+                        <div class="control">
+                            <button type="submit" class="button is-link is-fullwidth is-medium" id="login-btn">Login</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Register Form -->
+                <form id="register-form" class="auth-form is-hidden">
+                    <div class="field">
+                        <label class="label">Username</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="text" id="register-username" placeholder="johndoe" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control has-icons-left">
+                            <input class="input" type="password" id="register-password" placeholder="********" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field mt-5">
+                        <div class="control">
+                            <button type="submit" class="button is-primary is-fullwidth is-medium" id="register-btn">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabs = document.querySelectorAll('#auth-tabs li');
+        const forms = document.querySelectorAll('.auth-form');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('is-active'));
+                // Add active class to clicked tab
+                tab.classList.add('is-active');
+                
+                // Hide all forms
+                forms.forEach(f => f.classList.add('is-hidden'));
+                
+                // Show target form
+                const targetId = tab.dataset.target;
+                document.getElementById(targetId).classList.remove('is-hidden');
+            });
+        });
+    });
+</script>
+{% endblock %}
