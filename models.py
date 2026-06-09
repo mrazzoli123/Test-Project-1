@@ -37,4 +37,5 @@ class PersonalRecord(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     exercise_name = db.Column(db.String(150), nullable=False)
     max_weight = db.Column(db.Float, nullable=False)
+    is_visible = db.Column(db.Boolean, default=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

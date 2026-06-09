@@ -24,10 +24,13 @@
     <!-- PRs Column -->
     <div class="column is-4">
         <div class="card">
-            <header class="card-header has-background-primary">
+            <header class="card-header has-background-primary is-align-items-center">
                 <p class="card-header-title has-text-white">
                     <i class="fas fa-trophy mr-2"></i> Personal Records
                 </p>
+                <button class="button is-primary is-inverted is-outlined is-small mr-3" id="manage-prs-btn" title="Manage Visible PRs">
+                    <i class="fas fa-cog"></i>
+                </button>
             </header>
             <div class="card-content">
                 <div id="prs-container">
@@ -41,5 +44,24 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Manage PRs Modal -->
+<div class="modal" id="manage-prs-modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Manage Personal Records</p>
+      <button class="delete" aria-label="close" id="close-prs-modal"></button>
+    </header>
+    <section class="modal-card-body">
+      <div id="prs-modal-list">
+        <!-- PR checkboxes will be loaded here dynamically -->
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" id="save-prs-btn">Done</button>
+    </footer>
+  </div>
 </div>
 {% endblock %}

@@ -99,10 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const prs = await prsRes.json();
             
             prsContainer.innerHTML = '';
-            if (prs.length === 0) {
-                prsContainer.innerHTML = '<p class="has-text-grey-light is-size-7">No PRs yet. Log some exercises to track them.</p>';
+            const visiblePrs = prs.filter(pr => pr.is_visible);
+            
+            if (visiblePrs.length === 0) {
+                prsContainer.innerHTML = '<p class="has-text-grey-light is-size-7">No visible PRs. Click the gear icon to manage them.</p>';
             } else {
-                prs.forEach(pr => {
+                visiblePrs.forEach(pr => {
                     const item = document.createElement('div');
                     item.className = 'pr-item';
                     item.innerHTML = `
@@ -128,6 +130,58 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                 });
+            }
+
+            // Manage PRs Modal Logic
+            const managePrsBtn = document.getElementById('manage-prs-btn');
+            const prsModal = document.getElementById('manage-prs-modal');
+            const closePrsModal = document.getElementById('close-prs-modal');
+            const savePrsBtn = document.getElementById('save-prs-btn');
+            const prsModalList = document.getElementById('prs-modal-list');
+
+            if (managePrsBtn && prsModal) {
+                managePrsBtn.onclick = () => {
+                    if (prs.length === 0) {
+                        prsModalList.innerHTML = '<p class="has-text-grey-light">No PRs yet. Create workouts and add exercises to track them.</p>';
+                    } else {
+                        prsModalList.innerHTML = prs.map(pr => `
+                            <label class="checkbox is-block mb-2">
+                                <input type="checkbox" class="pr-visibility-checkbox" data-id="${pr.id}" ${pr.is_visible ? 'checked' : ''}>
+                                ${pr.exercise_name} (Max: ${pr.max_weight}kg)
+                            </label>
+                        `).join('');
+                    }
+                    prsModal.classList.add('is-active');
+                };
+
+                const closeModal = () => prsModal.classList.remove('is-active');
+                closePrsModal.onclick = closeModal;
+                
+                savePrsBtn.onclick = async () => {
+                    const checkboxes = document.querySelectorAll('.pr-visibility-checkbox');
+                    if (checkboxes.length > 0) {
+                        savePrsBtn.classList.add('is-loading');
+                        
+                        const promises = Array.from(checkboxes).map(async (cb) => {
+                            const id = cb.dataset.id;
+                            const isVisible = cb.checked;
+                            const originalPr = prs.find(p => p.id == id);
+                            
+                            if (originalPr && originalPr.is_visible !== isVisible) {
+                                return fetch(`/api/personal-records/${id}`, {
+                                    method: 'PUT',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ is_visible: isVisible })
+                                });
+                            }
+                        });
+                        
+                        await Promise.all(promises.filter(Boolean));
+                        savePrsBtn.classList.remove('is-loading');
+                    }
+                    closeModal();
+                    loadDashboardData();
+                };
             }
 
         } catch (err) {

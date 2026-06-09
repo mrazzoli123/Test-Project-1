@@ -102,9 +102,17 @@ def update_personal_record(pr_id):
     pr = PersonalRecord.query.filter_by(id=pr_id, user_id=current_user.id).first_or_404()
     data = request.get_json()
     
+    updated = False
     if 'max_weight' in data:
         pr.max_weight = float(data['max_weight'])
+        updated = True
+        
+    if 'is_visible' in data:
+        pr.is_visible = bool(data['is_visible'])
+        updated = True
+        
+    if updated:
         db.session.commit()
         return jsonify(personal_record_schema.dump(pr))
         
-    return jsonify({"message": "max_weight is required"}), 400
+    return jsonify({"message": "No valid fields to update"}), 400
