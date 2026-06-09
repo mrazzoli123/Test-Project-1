@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="is-flex is-justify-content-space-between is-align-items-center">
                                 <div>
                                     <h3 class="title is-5 mb-1">${workout.name}</h3>
-                                    <p class="subtitle is-7 has-text-grey">${date} • ${workout.exercises ? workout.exercises.length : 0} exercises</p>
+                                    <p class="has-text-grey is-size-7">${date} • ${workout.exercises ? workout.exercises.length : 0} exercises</p>
                                 </div>
                                 <a href="/workout/${workout.id}" class="button is-small is-light is-link">View</a>
                             </div>
