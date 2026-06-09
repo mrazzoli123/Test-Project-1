@@ -1,5 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    // ----- THEME TOGGLE ----- //
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if (themeToggleBtn) {
+        const icon = themeToggleBtn.querySelector('i');
+        
+        // Set initial icon state
+        if (document.body.classList.contains('dark-mode')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+        
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            if (isDark) {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                localStorage.setItem('theme', 'light');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+    }
+
     // ----- AUTHENTICATION ----- //
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
